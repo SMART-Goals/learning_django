@@ -1,0 +1,9 @@
+name: djbook
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - django
+  - sqlite
+  - flake8
+
