@@ -4,6 +4,7 @@ channels:
 dependencies:
   - python=3.8
   - django
+  - psycopg2
   - sqlite
   - flake8
 
