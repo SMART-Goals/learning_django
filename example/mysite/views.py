@@ -1,5 +1,7 @@
 # third-party imports
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
+from django.template.loader import get_template
 
 # standard imports
 import datetime
@@ -11,10 +13,16 @@ def hello(request: HttpRequest) -> HttpResponse:
 
 
 def current_datetime(request: HttpRequest) -> HttpResponse:
-    return HttpResponse(f"<html><body>It is now {datetime.datetime.now()}.</body></html>")
+    t = get_template("current_datetime.html")
+    html = t.render({"time_now": datetime.datetime.now()})
+    return HttpResponse(html)
 
 
 def hours_ahead(request, offset: Union[str, int]) -> HttpResponse:
     offset = int(offset)
     dt = datetime.datetime.now() + datetime.timedelta(hours=offset)
-    return HttpResponse(f"<html><body>In {offset} hour(s), it will be {dt}.</body></html>")
+    # t = get_template("hours_ahead.html")
+    # html = t.render({"offset": offset, "dt": dt})
+    # return HttpResponse(html)
+    return render(request, "hours_ahead.html", {"offset": offset, "dt": dt})  # shortcut removes a lot of boilerplate
+
